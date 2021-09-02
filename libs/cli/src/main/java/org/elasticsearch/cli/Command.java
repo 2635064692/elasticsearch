@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
+ * 需要在命令行界面执行得操作
  * An action to execute within a cli.
  */
 public abstract class Command implements Closeable {

@@ -108,6 +108,7 @@ public class LogConfigurator {
     }
 
     /**
+     * log4j2.properties 读取日志配置
      * Configure logging reading from any log4j2.properties found in the config directory and its
      * subdirectories from the specified environment. Will also configure logging to point the logs
      * directory from the specified environment.

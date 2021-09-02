@@ -1,0 +1,1 @@
+distribution模块 distribution的英文分发的意思，这里是的作用是打包各类压缩发布包。要与distributed进行区别，它是分布式。打包方式如下图：

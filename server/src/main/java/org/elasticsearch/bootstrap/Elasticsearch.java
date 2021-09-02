@@ -128,7 +128,7 @@ class Elasticsearch extends EnvironmentAwareCommand {
 
     @Override
     protected void execute(Terminal terminal, OptionSet options, Environment env) throws UserException {
-        if (options.nonOptionArguments().isEmpty() == false) {
+        if (!options.nonOptionArguments().isEmpty()) {
             throw new UserException(ExitCodes.USAGE, "Positional arguments not allowed, found " + options.nonOptionArguments());
         }
         if (options.has(versionOption)) {
@@ -150,6 +150,7 @@ class Elasticsearch extends EnvironmentAwareCommand {
         final Path pidFile = pidfileOption.value(options);
         final boolean quiet = options.has(quietOption);
 
+        //配置 java.io.tmpdir ??
         // a misconfigured java.io.tmpdir can cause hard-to-diagnose problems later, so reject it immediately
         try {
             env.validateTmpFile();

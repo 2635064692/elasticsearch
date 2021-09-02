@@ -192,7 +192,7 @@ final class Bootstrap {
                         IOUtils.close(node, spawner);
                         LoggerContext context = (LoggerContext) LogManager.getContext(false);
                         Configurator.shutdown(context);
-                        if (node != null && node.awaitClose(10, TimeUnit.SECONDS) == false) {
+                        if (node != null && !node.awaitClose(10, TimeUnit.SECONDS)) {
                             throw new IllegalStateException("Node didn't stop within 10 seconds. " +
                                     "Any outstanding requests or tasks might get killed.");
                         }
@@ -333,6 +333,7 @@ final class Bootstrap {
     }
 
     /**
+     * elasticsearch  正式启动
      * This method is invoked by {@link Elasticsearch#main(String[])} to startup elasticsearch.
      */
     static void init(
@@ -382,6 +383,7 @@ final class Bootstrap {
                 closeSystOut();
             }
 
+            //es 使用了 Lucene 同时也是一个搜索引擎
             // fail if somebody replaced the lucene jars
             checkLucene();
 

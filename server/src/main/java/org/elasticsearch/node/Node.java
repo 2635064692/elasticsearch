@@ -330,7 +330,7 @@ public class Node implements Closeable {
                     "no-jdk distributions that do not bundle a JDK are deprecated and will be removed in a future release");
             }
             logger.info("JVM arguments {}", Arrays.toString(jvmInfo.getInputArguments()));
-            if (Build.CURRENT.isProductionRelease() == false) {
+            if (!Build.CURRENT.isProductionRelease()) {
                 logger.warn(
                     "version [{}] is a pre-release version of Elasticsearch and is not suitable for production",
                     Build.CURRENT.getQualifiedVersion());
@@ -822,8 +822,8 @@ public class Node implements Closeable {
             injector.getInstance(PersistedClusterStateService.class));
         if (Assertions.ENABLED) {
             try {
-                if (DiscoveryModule.DISCOVERY_TYPE_SETTING.get(environment.settings()).equals(
-                    DiscoveryModule.ZEN_DISCOVERY_TYPE) == false) {
+                if (!DiscoveryModule.DISCOVERY_TYPE_SETTING.get(environment.settings()).equals(
+                    DiscoveryModule.ZEN_DISCOVERY_TYPE)) {
                     assert injector.getInstance(MetaStateService.class).loadFullState().v1().isEmpty();
                 }
                 final NodeMetadata nodeMetadata = NodeMetadata.FORMAT.loadLatestState(logger, NamedXContentRegistry.EMPTY,
@@ -888,6 +888,8 @@ public class Node implements Closeable {
             }
         }
 
+        //restful api 请求监控
+        //启动
         injector.getInstance(HttpServerTransport.class).start();
 
         if (WRITE_PORTS_FILE_SETTING.get(settings())) {
