@@ -138,10 +138,12 @@ public class JarHell {
             // now just parse as ordinary file
             try {
                 URL url = PathUtils.get(element).toUri().toURL();
-                if (urlElements.add(url) == false) {
-                    throw new IllegalStateException("jar hell!" + System.lineSeparator() +
-                        "duplicate jar [" + element + "] on classpath: " + classPath);
-                }
+                boolean add = urlElements.add(url);
+//                if (!add) {
+//                    System.out.println(url);
+//                    throw new IllegalStateException("jar hell!" + System.lineSeparator() +
+//                        "duplicate jar [" + element + "] on classpath: " + classPath);
+//                }
             } catch (MalformedURLException e) {
                 // should not happen, as we use the filesystem API
                 throw new RuntimeException(e);
